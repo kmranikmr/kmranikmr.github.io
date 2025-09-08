@@ -40,6 +40,13 @@
       font-size: 0.95rem;
     }
 
+    .embed-viewer {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      width: 100%;
+      max-width: 960px;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -95,17 +102,40 @@
                 webkitallowfullscreen="true"></iframe>
       </div>
     </div>
+
+    <div class="embed-viewer">
+      <h2 class="section-title">deephouse.io - A Network Trace Anonymization Usecase (Google Doc Viewer)</h2>
+      <iframe src="https://docs.google.com/document/d/1CUYcLLZP9oqhwj13fbYhuftzml4mnd05hRJSugX54co/preview"
+              width="960"
+              height="600"
+              frameborder="0"
+              style="border:1px solid #ddd;"></iframe>
+    </div>
+
     <script>
+      // Toggle slides visibility on button click
       document.getElementById('deephouseBtn').onclick = function() {
         var slides = document.getElementById('deephouseSlides');
         slides.style.display = slides.style.display === 'none' ? 'block' : 'none';
       };
+
+      // Auto-hide slides if the button is not visible in the viewport
+      var deephouseBtn = document.getElementById('deephouseBtn');
+      var deephouseSlides = document.getElementById('deephouseSlides');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting && deephouseSlides.style.display === 'block') {
+            deephouseSlides.style.display = 'none';
+          }
+        });
+      }, { threshold: 0 });
+
+      observer.observe(deephouseBtn);
     </script>
   
   </div>
 
   <footer>
-    
   </footer>
 
 </body>
