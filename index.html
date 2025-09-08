@@ -41,10 +41,26 @@
     }
 
     .embed-viewer {
-      margin-top: 30px;
-      margin-bottom: 30px;
       width: 100%;
       max-width: 960px;
+      margin: auto;
+      margin-bottom: 30px;
+      display: none; /* Hide by default */
+    }
+    #deephouseSlides {
+      display: none; /* Hide by default */
+      margin-top: 10px;
+    }
+
+    .toggle-btn {
+      margin:20px 0 10px 0;
+      padding:10px 20px;
+      background:#0078ff;
+      color:#fff;
+      border:none;
+      border-radius:5px;
+      font-size:1rem;
+      cursor:pointer;
     }
 
     footer {
@@ -88,10 +104,10 @@
       <li>Designed and deployed AI-driven solutions leveraging <strong>Haystack, LangChain, LLMs, NLP, and RAG pipelines</strong>.</li>
     </ul>
 
-    <button id="deephouseBtn" style="margin:20px 0 10px 0;padding:10px 20px;background:#0078ff;color:#fff;border:none;border-radius:5px;font-size:1rem;cursor:pointer;" aria-label="Show deephouse project slides">
-      deephouse project slides
+    <button id="deephouseBtn" class="toggle-btn" aria-label="Show deephouse project slides">
+      Show deephouse project slides
     </button>
-    <div id="deephouseSlides" style="display:none; margin-top:10px;">
+    <div id="deephouseSlides">
       <div style="width:100%;max-width:960px;margin:auto;">
         <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTQ9wku0YzqTXfK0RrBVN6UctnNwXYJcE_yyZ5GXgSLmoVEnD1gDzICZ12bbFXU1SvUNeWylW2aNzMh/embed?start=false&loop=false&delayms=3000"
                 width="960"
@@ -103,7 +119,10 @@
       </div>
     </div>
 
-    <div class="embed-viewer">
+    <button id="docBtn" class="toggle-btn" aria-label="Show deephouse network trace doc">
+      Show deephouse network trace doc
+    </button>
+    <div class="embed-viewer" id="docViewer">
       <h2 class="section-title">deephouse.io - A Network Trace Anonymization Usecase (Google Doc Viewer)</h2>
       <iframe src="https://docs.google.com/document/d/1CUYcLLZP9oqhwj13fbYhuftzml4mnd05hRJSugX54co/preview"
               width="960"
@@ -113,24 +132,41 @@
     </div>
 
     <script>
-      // Toggle slides visibility on button click
+      // Slides toggle
       document.getElementById('deephouseBtn').onclick = function() {
         var slides = document.getElementById('deephouseSlides');
-        slides.style.display = slides.style.display === 'none' ? 'block' : 'none';
+        var docViewer = document.getElementById('docViewer');
+        var docBtn = document.getElementById('docBtn');
+        // Hide doc if open
+        docViewer.style.display = 'none';
+        docBtn.textContent = 'Show deephouse network trace doc';
+        // Toggle slides
+        if (slides.style.display === 'none' || slides.style.display === '') {
+          slides.style.display = 'block';
+          this.textContent = 'Hide deephouse project slides';
+        } else {
+          slides.style.display = 'none';
+          this.textContent = 'Show deephouse project slides';
+        }
       };
 
-      // Auto-hide slides if the button is not visible in the viewport
-      var deephouseBtn = document.getElementById('deephouseBtn');
-      var deephouseSlides = document.getElementById('deephouseSlides');
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (!entry.isIntersecting && deephouseSlides.style.display === 'block') {
-            deephouseSlides.style.display = 'none';
-          }
-        });
-      }, { threshold: 0 });
-
-      observer.observe(deephouseBtn);
+      // Doc toggle
+      document.getElementById('docBtn').onclick = function() {
+        var docViewer = document.getElementById('docViewer');
+        var slides = document.getElementById('deephouseSlides');
+        var deephouseBtn = document.getElementById('deephouseBtn');
+        // Hide slides if open
+        slides.style.display = 'none';
+        deephouseBtn.textContent = 'Show deephouse project slides';
+        // Toggle doc
+        if (docViewer.style.display === 'none' || docViewer.style.display === '') {
+          docViewer.style.display = 'block';
+          this.textContent = 'Hide deephouse network trace doc';
+        } else {
+          docViewer.style.display = 'none';
+          this.textContent = 'Show deephouse network trace doc';
+        }
+      };
     </script>
   
   </div>
